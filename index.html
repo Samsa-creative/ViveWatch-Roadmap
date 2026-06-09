@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoja de ruta · Lanzamiento ViveWatch · ViveLibre × Samsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   DESIGN TOKENS · Samsa
+   ============================================ */
+:root {
+  --navy: #1D2F49;
+  --navy-deep: #0c1322;
+  --steel: #657690;
+  --fog: #ADBCD6;
+  --mist: #EAEEF5;
+  --paper: #FFFFFF;
+
+  --sky-blue: #5CAEFF;
+  --pulse-green: #1CE867;
+  --deep-blue: #385E9D;
+  --teal: #37CFA8;
+
+  --aurora: linear-gradient(110deg, #1CE867 0%, #37CFA8 30%, #5CAEFF 65%, #385E9D 100%);
+  --green-blue: linear-gradient(135deg, #1CE867 0%, #5CAEFF 100%);
+  --blue-teal: linear-gradient(135deg, #5CAEFF 0%, #37CFA8 100%);
+  --teal-deep: linear-gradient(135deg, #37CFA8 0%, #385E9D 100%);
+  --fog-navy: linear-gradient(135deg, #ADBCD6 0%, #1D2F49 100%);
+
+  --font: 'Montserrat', sans-serif;
+
+  --lane-prod: linear-gradient(135deg, #37CFA8 0%, #5CAEFF 100%);
+  --lane-client: linear-gradient(135deg, #5CAEFF 0%, #385E9D 100%);
+  --lane-pay: linear-gradient(135deg, #1CE867 0%, #37CFA8 100%);
+
+  --pad-x: 64px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  font-family: var(--font);
+  background: linear-gradient(180deg, #0c1322 0%, #1D2F49 100%);
+  color: var(--navy);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding: 36px var(--pad-x) 28px;
+  color: var(--paper);
+  position: relative;
+}
+
+.hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.hero__logos {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.hero__logos img {
+  height: 30px;
+}
+
+.hero__logos .divider {
+  color: var(--fog);
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.45;
+}
+
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fog);
+  opacity: 0.6;
+}
+
+.hero__meta span + span::before {
+  content: '·';
+  margin-right: 18px;
+  opacity: 0.5;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fog);
+  opacity: 0.7;
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 3.4vw, 52px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 920px;
+}
+
+.hero h1 .gradient {
+  background: var(--aurora);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__sub {
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fog);
+  max-width: 720px;
+}
+
+.hero__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 8px 16px;
+  background: rgba(92, 174, 255, 0.10);
+  border: 1px solid rgba(92, 174, 255, 0.25);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--fog);
+}
+
+.hero__flag::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sky-blue);
+  box-shadow: 0 0 8px rgba(92,174,255,0.7);
+}
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.timeline-wrap {
+  flex: 1;
+  padding: 0 var(--pad-x) 32px;
+}
+
+.timeline {
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 32px 40px 38px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--aurora);
+}
+
+/* AXIS — months */
+.axis-months {
+  display: grid;
+  grid-template-columns: 14% 29% 29% 28%;
+  margin-bottom: 6px;
+  margin-left: 214px;
+  position: relative;
+}
+
+.axis-month {
+  padding: 0 0 8px 10px;
+  border-bottom: 1px solid var(--mist);
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.axis-month::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 2px;
+  height: 10px;
+  background: var(--navy);
+}
+
+.axis-month strong {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.axis-month__range {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--steel);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* AXIS — days (eje inferior con fechas críticas) */
+.axis-days {
+  position: relative;
+  height: 28px;
+  margin-top: 18px;
+  margin-left: 214px;
+  border-top: 1px solid var(--mist);
+}
+
+.axis-day {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  padding-top: 10px;
+}
+
+.axis-day::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 6px;
+  background: var(--steel);
+}
+
+.axis-day[data-key="true"] {
+  font-weight: 800;
+  color: var(--deep-blue);
+}
+
+.axis-day[data-key="true"]::before {
+  height: 8px;
+  width: 2px;
+  background: var(--deep-blue);
+}
+
+.axis-day[data-anchor="left"]  { transform: none; left: 0 !important; }
+.axis-day[data-anchor="right"] { transform: none; left: auto !important; right: 0; }
+.axis-day[data-anchor="right"]::before { left: auto; right: 0; transform: none; }
+.axis-day[data-anchor="left"]::before  { left: 0; transform: none; }
+
+/* LANES */
+.lanes {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.lane {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.lane__label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.lane__num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--steel);
+  margin-bottom: 4px;
+}
+
+.lane__title {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+
+.lane__sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--steel);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+.lane__track {
+  position: relative;
+  background: linear-gradient(180deg, #f5f8fd 0%, #eef2f9 100%);
+  border-radius: 14px;
+  min-height: 88px;
+  border: 1px solid #e5ebf5;
+  overflow: visible;
+}
+
+.lane--prod .lane__track { min-height: 138px; }
+.lane--client .lane__track { min-height: 140px; }
+.lane--pay .lane__track { min-height: 104px; }
+
+/* week grid background */
+.lane__track::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(100% / 16 - 1px),
+    rgba(173, 188, 214, 0.18) calc(100% / 16 - 1px),
+    rgba(173, 188, 214, 0.18) calc(100% / 16)
+  );
+  pointer-events: none;
+  border-radius: 14px;
+}
+
+/* BAR — fase con duración */
+.bar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.25s cubic-bezier(0.2,0.7,0.3,1);
+  box-shadow: 0 4px 14px rgba(29, 47, 73, 0.10);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.bar:hover {
+  transform: translateY(-50%) translateY(-2px);
+  box-shadow: 0 8px 22px rgba(29, 47, 73, 0.20);
+}
+
+.bar__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar__dates {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.95;
+  margin-left: 12px;
+  padding: 3px 8px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.bar--prod-prep   { background: var(--lane-prod); }
+.bar--prod-shoot  { background: linear-gradient(135deg, #385E9D 0%, #1D2F49 100%); }
+.bar--prod-post1  { background: linear-gradient(135deg, #37CFA8 0%, #385E9D 100%); }
+.bar--prod-post2  { background: linear-gradient(135deg, #5CAEFF 0%, #385E9D 100%); }
+
+.bar--shoot-marker {
+  height: 64px;
+  font-weight: 800;
+  overflow: visible;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(56, 94, 157, 0.35);
+}
+
+/* Callout exterior para la barra Rodaje (texto fuera porque la barra es muy angosta) */
+.bar__callout {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.bar__callout::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--navy);
+}
+
+.bar__callout small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--deep-blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* MILESTONE — punto único (touchpoint cliente / pago) */
+.milestone {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 3;
+}
+
+.milestone__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--deep-blue);
+  box-shadow: 0 4px 12px rgba(56, 94, 157, 0.30);
+  transition: all 0.25s cubic-bezier(0.2,0.7,0.3,1);
+  position: relative;
+}
+
+.milestone:hover .milestone__dot {
+  transform: scale(1.18);
+  box-shadow: 0 6px 18px rgba(56, 94, 157, 0.50);
+}
+
+.milestone__label {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* vpos UP: label arriba del dot */
+.milestone[data-vpos="up"] .milestone__label {
+  top: auto;
+  bottom: calc(100% + 10px);
+}
+
+/* align LEFT: label anclado al borde izquierdo del dot */
+.milestone[data-align="left"] .milestone__label {
+  left: -4px;
+  transform: none;
+  text-align: left;
+}
+
+/* align RIGHT: label anclado al borde derecho del dot */
+.milestone[data-align="right"] .milestone__label {
+  left: auto;
+  right: -4px;
+  transform: none;
+  text-align: right;
+}
+
+.milestone__date {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--deep-blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* línea conectora opcional entre dot y label cuando va arriba */
+.milestone[data-vpos="up"] .milestone__dot::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 6px;
+  background: var(--fog);
+}
+
+.milestone[data-vpos="down"] .milestone__dot::after,
+.milestone:not([data-vpos]) .milestone__dot::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 6px;
+  background: var(--fog);
+}
+
+/* CLIENT milestones */
+.lane--client .milestone__dot {
+  border-color: var(--deep-blue);
+  background: var(--paper);
+}
+
+.milestone--hero .milestone__dot {
+  width: 22px;
+  height: 22px;
+  background: var(--aurora);
+  border-color: var(--paper);
+  outline: 2px solid var(--pulse-green);
+  outline-offset: 0;
+  box-shadow: 0 6px 20px rgba(28, 232, 103, 0.40);
+}
+
+.milestone--hero:hover .milestone__dot {
+  transform: scale(1.20);
+}
+
+.milestone--hero .milestone__label {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* PAYMENT milestones */
+.payment {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 3;
+}
+
+.payment[data-align="left"] {
+  transform: translateY(-50%);
+  left: 8px !important;
+}
+
+.payment[data-align="right"] {
+  transform: translateY(-50%);
+  left: auto !important;
+  right: 8px;
+}
+
+.payment__chip {
+  background: var(--paper);
+  border: 2px solid var(--pulse-green);
+  border-radius: 14px;
+  padding: 10px 18px 9px;
+  box-shadow: 0 4px 16px rgba(28, 232, 103, 0.20);
+  transition: all 0.25s cubic-bezier(0.2,0.7,0.3,1);
+  text-align: center;
+  min-width: 86px;
+  position: relative;
+}
+
+.payment:hover .payment__chip {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(28, 232, 103, 0.35);
+  border-color: var(--teal);
+}
+
+.payment__pct {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--lane-pay);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.payment__amount {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+.payment__date {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.payment[data-align="left"] .payment__date {
+  left: 0;
+  transform: none;
+  text-align: left;
+}
+
+.payment[data-align="right"] .payment__date {
+  left: auto;
+  right: 0;
+  transform: none;
+  text-align: right;
+}
+
+/* DEPENDENCY connectors (SVG overlay) */
+.connectors {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* TODAY marker */
+.today-line {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--pulse-green) 0%, var(--sky-blue) 100%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.today-line::before {
+  content: 'HOY';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--pulse-green);
+  background: var(--paper);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   LEGEND + STATS strip
+   ============================================ */
+.strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 32px var(--pad-x) 28px;
+}
+
+.strip__card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 20px;
+  color: var(--fog);
+  backdrop-filter: blur(6px);
+}
+
+.strip__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fog);
+  opacity: 0.65;
+  margin-bottom: 8px;
+}
+
+.strip__value {
+  font-size: clamp(15px, 1.5vw, 22px);
+  font-weight: 800;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strip__sub {
+  font-size: 11px;
+  color: var(--fog);
+  margin-top: 4px;
+  opacity: 0.75;
+}
+
+.strip__value .gradient {
+  background: var(--green-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--pad-x) 28px;
+  color: var(--fog);
+  opacity: 0.55;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.foot img {
+  height: 22px;
+  opacity: 0.85;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 19, 34, 0.72);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal.is-open .modal__backdrop {
+  opacity: 1;
+}
+
+.modal__panel {
+  position: relative;
+  background: var(--paper);
+  border-radius: 22px;
+  width: 100%;
+  max-width: 620px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+  transform: scale(0.96) translateY(8px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.2,0.7,0.3,1);
+}
+
+.modal.is-open .modal__panel {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal__band {
+  height: 6px;
+  background: var(--aurora);
+}
+
+.modal__band--prod   { background: var(--lane-prod); }
+.modal__band--client { background: var(--lane-client); }
+.modal__band--pay    { background: var(--lane-pay); }
+
+.modal__close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--mist);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--navy);
+  transition: all 0.2s ease;
+}
+
+.modal__close:hover {
+  background: var(--navy);
+  color: var(--paper);
+}
+
+.modal__body {
+  padding: 36px 40px 36px;
+}
+
+.modal__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 14px;
+}
+
+.modal__eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: var(--navy);
+}
+
+.modal__title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.modal__date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--steel);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mist);
+}
+
+.modal__section {
+  margin-top: 20px;
+}
+
+.modal__section h4 {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 10px;
+}
+
+.modal__section p,
+.modal__section ul {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--navy);
+}
+
+.modal__section ul {
+  list-style: none;
+}
+
+.modal__section li {
+  padding: 5px 0;
+  padding-left: 18px;
+  position: relative;
+}
+
+.modal__section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 8px;
+  height: 1.5px;
+  background: var(--teal);
+}
+
+.modal__hint {
+  margin-top: 24px;
+  padding: 14px 18px;
+  background: var(--mist);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--steel);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1100px) {
+  :root { --pad-x: 32px; }
+  .lane { grid-template-columns: 150px 1fr; gap: 14px; }
+  .axis-months, .axis-days { margin-left: 164px; }
+  .strip { grid-template-columns: 1fr 1fr; }
+  .axis-month strong { font-size: 15px; }
+}
+
+@media (max-width: 760px) {
+  .hero h1 { font-size: 28px; }
+  .lane { grid-template-columns: 1fr; }
+  .lane__label { padding: 0 0 8px; }
+  .axis-months, .axis-days { margin-left: 0; }
+  .strip { grid-template-columns: 1fr; }
+  .timeline { padding: 22px 18px 28px; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==========================================
+     HERO
+     ========================================== -->
+<header class="hero">
+  <div class="hero__top">
+    <div class="hero__logos">
+      <img src="logo-vivelibre.svg" alt="ViveLibre">
+      <span class="divider">×</span>
+      <img src="logo-samsa-dark.png" alt="Samsa Creative" style="filter: brightness(0) invert(1); opacity: 0.95;">
+    </div>
+    <div class="hero__meta">
+      <span>Hoja de ruta</span>
+      <span>Junio · Septiembre 2026</span>
+    </div>
+  </div>
+
+  <p class="eyebrow">Lanzamiento ViveWatch · Producción</p>
+  <h1>El plan, <span class="gradient">semana a semana</span>, hasta el aire.</h1>
+  <p class="hero__sub">Tres carriles que avanzan en paralelo y convergen en el lanzamiento de septiembre. Producción, puntos de contacto con ViveLibre y calendario de pagos, sincronizados. Hacé click en cualquier hito para ver el detalle.</p>
+
+  <div class="hero__flag">Sujeto a confirmación de la fecha exacta de lanzamiento</div>
+</header>
+
+<!-- ==========================================
+     TIMELINE
+     ========================================== -->
+<div class="timeline-wrap">
+  <div class="timeline" id="timeline">
+    <div class="axis-months">
+      <div class="axis-month"><strong>Junio</strong><span class="axis-month__range">15 · 30</span></div>
+      <div class="axis-month"><strong>Julio</strong><span class="axis-month__range">1 · 31</span></div>
+      <div class="axis-month"><strong>Agosto</strong><span class="axis-month__range">1 · 31</span></div>
+      <div class="axis-month"><strong>Septiembre</strong><span class="axis-month__range">1 · 30</span></div>
+    </div>
+
+    <div class="lanes">
+
+      <!-- ====== LANE 1 · PRODUCCIÓN ====== -->
+      <div class="lane lane--prod">
+        <div class="lane__label">
+          <span class="lane__num">01 · SAMSA</span>
+          <span class="lane__title">Producción</span>
+          <span class="lane__sub">Lo que hacemos puertas adentro</span>
+        </div>
+        <div class="lane__track" id="track-prod"></div>
+      </div>
+
+      <!-- ====== LANE 2 · CLIENTE ====== -->
+      <div class="lane lane--client">
+        <div class="lane__label">
+          <span class="lane__num">02 · VIVELIBRE</span>
+          <span class="lane__title">Puntos de contacto</span>
+          <span class="lane__sub">Cuándo te necesitamos en el loop</span>
+        </div>
+        <div class="lane__track" id="track-client"></div>
+      </div>
+
+      <!-- ====== LANE 3 · PAGOS ====== -->
+      <div class="lane lane--pay">
+        <div class="lane__label">
+          <span class="lane__num">03 · INVERSIÓN</span>
+          <span class="lane__title">Calendario de pagos</span>
+          <span class="lane__sub">4 hitos alineados al flujo</span>
+        </div>
+        <div class="lane__track" id="track-pay"></div>
+      </div>
+
+    </div>
+
+    <!-- Eje inferior · fechas críticas alineadas a los hitos -->
+    <div class="axis-days" id="axis-days"></div>
+  </div>
+</div>
+
+<!-- ==========================================
+     STRIP · síntesis numérica
+     ========================================== -->
+<div class="strip">
+  <div class="strip__card">
+    <div class="strip__label">Preproducción</div>
+    <div class="strip__value">15 jun</div>
+    <div class="strip__sub">Arranque · 5 semanas</div>
+  </div>
+  <div class="strip__card">
+    <div class="strip__label">Rodaje</div>
+    <div class="strip__value">22-24 jul</div>
+    <div class="strip__sub">3 días intensivos, antes de agosto</div>
+  </div>
+  <div class="strip__card">
+    <div class="strip__label">Lanzamiento objetivo</div>
+    <div class="strip__value"><span class="gradient">Septiembre</span></div>
+    <div class="strip__sub">Fecha exacta a confirmar</div>
+  </div>
+  <div class="strip__card">
+    <div class="strip__label">Inversión total</div>
+    <div class="strip__value">€ 49.000</div>
+    <div class="strip__sub">IVA no incluido · 4 cuotas</div>
+  </div>
+</div>
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<div class="foot">
+  <div>ViveLibre × Samsa Creative · Junio 2026</div>
+  <img src="logo-samsa-light.png" alt="Samsa" style="filter: brightness(0) invert(1); opacity: 0.85;">
+</div>
+
+<!-- ==========================================
+     MODAL
+     ========================================== -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true">
+    <div class="modal__band" id="modal-band"></div>
+    <button class="modal__close" data-close aria-label="Cerrar">×</button>
+    <div class="modal__body">
+      <div class="modal__eyebrow" id="modal-eyebrow">SAMSA · PRODUCCIÓN</div>
+      <h2 class="modal__title" id="modal-title">Título</h2>
+      <div class="modal__date" id="modal-date">FECHA</div>
+
+      <div class="modal__section" id="modal-what">
+        <h4>Qué pasa</h4>
+        <p></p>
+      </div>
+
+      <div class="modal__section" id="modal-deliver">
+        <h4>Qué entregamos</h4>
+        <ul></ul>
+      </div>
+
+      <div class="modal__section" id="modal-need">
+        <h4>Qué necesitamos de ViveLibre</h4>
+        <ul></ul>
+      </div>
+
+      <div class="modal__hint" id="modal-hint" hidden></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================
+   DATA · todos los items del timeline
+   ============================================ */
+
+// Eje: 15 jun (día 0) → 30 sep (día 107). 100% = 107 días.
+const DAY_TOTAL = 107;
+const pct = (d) => (d / DAY_TOTAL * 100).toFixed(2) + '%';
+const span = (start, end) => ({
+  left: pct(start),
+  width: ((end - start) / DAY_TOTAL * 100).toFixed(2) + '%'
+});
+
+const items = {
+  prod: [
+    {
+      id: 'prep',
+      kind: 'bar',
+      cls: 'bar--prod-prep',
+      start: 0, end: 36, // 15 jun → 21 jul (con gap al rodaje)
+      label: 'Preproducción',
+      dates: '15 jun · 21 jul',
+      modal: {
+        eyebrow: 'SAMSA · PRODUCCIÓN',
+        title: 'Preproducción',
+        date: '15 de junio · 21 de julio',
+        what: 'Cinco semanas para llegar al rodaje con todo cerrado. Storyboard final, guiones por hito, casting de actores (campaña y testimoniales por separado), scouting de locaciones, casting de equipo técnico, plan de rodaje día por día y permisos.',
+        deliver: [
+          'Storyboard definitivo por pieza',
+          'Guiones aprobados de los 6 hitos hero',
+          'Casting cerrado · actores campaña + testimoniales',
+          'Locaciones confirmadas y permisos',
+          'Plan de rodaje y crew completo'
+        ],
+        need: [
+          'Aprobación del concepto paraguas (kickoff)',
+          'Aprobación final de guiones (gate previo al rodaje)',
+          'NDA firmado para acceder a render 3D + Figma'
+        ],
+        hint: 'Esta etapa requiere ritmo de aprobación quincenal. Si las decisiones se demoran, comprime el calendario de rodaje.'
+      }
+    },
+    {
+      id: 'shoot',
+      kind: 'bar',
+      cls: 'bar--prod-shoot bar--shoot-marker',
+      start: 37, end: 40, // 22-24 jul
+      label: 'Rodaje',
+      dates: '22 · 23 · 24 jul',
+      modal: {
+        eyebrow: 'SAMSA · PRODUCCIÓN',
+        title: 'Rodaje · 3 días intensivos',
+        date: '22, 23 y 24 de julio',
+        what: 'Un solo bloque de rodaje que captura todo el material de los 6 hitos hero del año (5 spots + video web), testimoniales y fotos editoriales. Cerramos antes de agosto para evitar el corte de vacaciones y optimizar costos de locación, equipamiento y talentos.',
+        deliver: [
+          'Material crudo de 6 hitos hero + testimoniales',
+          'Fotos editoriales (Salud + Seguridad)',
+          'B-roll para biblioteca de imágenes',
+          'Reportes diarios de rodaje al cierre de cada jornada'
+        ],
+        need: [
+          'Presencia opcional de ViveLibre en set (recomendado al menos un día)',
+          'Render 3D del ViveWatch para compositing en post',
+          'Aprobación previa del shot list'
+        ],
+        hint: 'Rodar antes de agosto es la decisión más importante del cronograma. Nos da margen para resolver imprevistos sin comprometer el lanzamiento.'
+      }
+    },
+    {
+      id: 'post1',
+      kind: 'bar',
+      cls: 'bar--prod-post1',
+      start: 41, end: 76, // 25 jul → 30 ago (con gap al rodaje)
+      label: 'Postpro · Lanzamiento + Web',
+      dates: '25 jul · 30 ago',
+      modal: {
+        eyebrow: 'SAMSA · POSTPRODUCCIÓN',
+        title: 'Postproducción · Spot Lanzamiento + Web',
+        date: '25 de julio · 30 de agosto',
+        what: 'Edición, corrección de color, sonido y mezclas del spot de lanzamiento, el video hero de la web y los 3 testimoniales. Avanzamos en agosto sobre guiones aprobados aunque el cliente esté de vacaciones, dejando una primera versión lista para revisión al regreso.',
+        deliver: [
+          'Spot Lanzamiento · master + adaptaciones digitales',
+          'Video Hero web · 10-20 segundos',
+          '3 Testimoniales · 90 segundos cada uno',
+          'Cuña de radio · prelanzamiento',
+          '2 Fotos editoriales finales (Salud + Seguridad)'
+        ],
+        need: [
+          'Feedback sobre primera versión al regreso de vacaciones (semana del 24 ago)'
+        ],
+        hint: 'No esperamos a que vuelvan de vacaciones para empezar. Entregamos primera versión y recibimos feedback en simultáneo a su reincorporación.'
+      }
+    },
+    {
+      id: 'post2',
+      kind: 'bar',
+      cls: 'bar--prod-post2',
+      start: 78, end: 100, // 1 sep → 23 sep
+      label: 'Postpro · Hitos siguientes',
+      dates: '1 sep · 23 sep',
+      modal: {
+        eyebrow: 'SAMSA · POSTPRODUCCIÓN',
+        title: 'Postproducción · Continuidad y hitos siguientes',
+        date: '1 · 23 de septiembre',
+        what: 'Edición y entrega de los spots de continuidad y los hitos hero que se publican después del lanzamiento. Ritmo aproximado de una semana por campaña, con foco en mantener el lenguaje del lanzamiento y la coherencia de la "Apple de la teleasistencia".',
+        deliver: [
+          'Spot Continuidad ola 1',
+          'Adaptaciones digitales y formatos paid media',
+          'Biblioteca de imágenes para notas de prensa',
+          'Material listo para activar Navidad, Día del Padre y Día de la Madre desde el mismo material crudo'
+        ],
+        need: [
+          'Calendario editorial confirmado por ViveLibre',
+          'Validación de mensajes por campaña'
+        ],
+        hint: ''
+      }
+    }
+  ],
+
+  client: [
+    {
+      id: 'c-kickoff',
+      kind: 'milestone',
+      day: 0, // 15 jun
+      label: 'Kickoff · NDA',
+      date: '15 JUN',
+      vpos: 'down',
+      align: 'left',
+      modal: {
+        eyebrow: 'VIVELIBRE · TOUCHPOINT',
+        title: 'Kickoff de proyecto',
+        date: '15 de junio',
+        what: 'Arrancamos formalmente. Reunión de alineación de equipos, validación final del concepto paraguas y firma del NDA para que podamos acceder al render 3D del ViveWatch y al Figma de la web.',
+        deliver: [
+          'Acta de kickoff y plan de proyecto compartido',
+          'Acceso a tablero de seguimiento'
+        ],
+        need: [
+          'NDA firmado por ViveLibre',
+          'Render 3D del ViveWatch',
+          'Prototipo Figma de la web',
+          'Confirmación de equipo del lado de ViveLibre y su disponibilidad'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'c-scripts',
+      kind: 'milestone',
+      day: 30, // 15 jul
+      label: 'Aprobación guiones',
+      date: '15 JUL',
+      vpos: 'down',
+      modal: {
+        eyebrow: 'VIVELIBRE · GATE',
+        title: 'Aprobación final de guiones',
+        date: '15 de julio',
+        what: 'Gate crítico. Verónica y el equipo aprueban los guiones definitivos de los 6 hitos hero. Una vez cerrados, son la base de toda la producción y de la edición que avanza en agosto. Después de este punto, todo cambio de guion implica re-trabajo.',
+        deliver: [
+          'Guiones finales compartidos 5 días antes para revisión'
+        ],
+        need: [
+          'Aprobación formal de Verónica · ronda final de revisiones',
+          'Validación de mensajes legales / claims del producto'
+        ],
+        hint: 'Lo bloqueamos juntos. Este es el momento donde más vale tu tiempo: una hora de revisión acá ahorra semanas de re-trabajo después.'
+      }
+    },
+    {
+      id: 'c-onset',
+      kind: 'milestone',
+      day: 38, // 23 jul
+      label: 'Presencia en rodaje',
+      date: '22-24 JUL',
+      vpos: 'up',
+      modal: {
+        eyebrow: 'VIVELIBRE · TOUCHPOINT',
+        title: 'Presencia en rodaje (opcional)',
+        date: '22, 23 y 24 de julio',
+        what: 'No es obligatorio que estén los tres días, pero recomendamos que Verónica y un representante del producto visiten el set al menos una jornada. Genera confianza, alinea decisiones de tono en tiempo real y queda como material institucional.',
+        deliver: [
+          'Itinerario y agenda de visita',
+          'Setup para que puedan ver monitores y aprobar takes clave'
+        ],
+        need: [
+          'Confirmación de qué día/s pueden estar',
+          'Disponibilidad para resolver dudas remotas si no pueden asistir'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'c-feedback',
+      kind: 'milestone',
+      day: 70, // 24 ago
+      label: 'Feedback primera versión',
+      date: '24 AGO',
+      vpos: 'down',
+      modal: {
+        eyebrow: 'VIVELIBRE · TOUCHPOINT',
+        title: 'Feedback sobre primera versión',
+        date: '24 de agosto',
+        what: 'Al regreso de vacaciones, encontrás listas las primeras versiones del spot de lanzamiento, video hero web y testimoniales. Ronda de feedback consolidada en una sola entrega para optimizar el tiempo del equipo de marketing.',
+        deliver: [
+          'Plataforma de revisión con timestamps y comentarios',
+          'Sesión de presentación de cortes (60-90 minutos)'
+        ],
+        need: [
+          'Feedback consolidado en máximo 5 días hábiles',
+          'Una sola voz desde ViveLibre para evitar feedback contradictorio'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'c-final',
+      kind: 'milestone',
+      day: 91, // 14 sep
+      label: 'Aprobación final',
+      date: '14 SEP',
+      vpos: 'up',
+      modal: {
+        eyebrow: 'VIVELIBRE · GATE',
+        title: 'Aprobación final pre-lanzamiento',
+        date: '14 de septiembre',
+        what: 'Última ronda. Cerramos masters de spot de lanzamiento, video hero web, testimoniales, fotos editoriales y cuña de radio. A partir de acá, listos para entregar a la agencia de medios y poner en aire.',
+        deliver: [
+          'Masters en todos los formatos solicitados',
+          'Adaptaciones digitales por plataforma',
+          'Archivo maestro de campaña'
+        ],
+        need: [
+          'Aprobación formal de Verónica',
+          'Confirmación de la fecha exacta de lanzamiento'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'c-launch',
+      kind: 'milestone',
+      day: 99, // 22 sep
+      hero: true,
+      label: 'Lanzamiento',
+      date: '22 SEP*',
+      vpos: 'down',
+      align: 'right',
+      modal: {
+        eyebrow: 'VIVELIBRE · HITO',
+        title: 'Lanzamiento ViveWatch',
+        date: 'Septiembre 2026 · fecha exacta a confirmar',
+        what: 'Sale al aire la campaña de lanzamiento. El día exacto depende de la fase tester del producto, que el equipo de ViveLibre confirma a más tardar el 15 de julio. Todo el plan está dimensionado para llegar listos a cualquier fecha entre el 15 y el 30 de septiembre.',
+        deliver: [
+          'Plan de contingencia si la fecha se mueve ± 1 semana',
+          'Materiales listos en versiones master + paid media'
+        ],
+        need: [
+          'Confirmación de fecha exacta antes del 15 de julio',
+          'Coordinación con agencia de medios'
+        ],
+        hint: 'Es el norte de todo el plan. Cuanto antes se confirme la fecha, mejor podemos optimizar el calendario de entregas.'
+      }
+    }
+  ],
+
+  pay: [
+    {
+      id: 'pay-1',
+      kind: 'payment',
+      day: 0,
+      pct: '40%',
+      amount: '€ 19.600',
+      date: '15 JUN · KICKOFF',
+      align: 'left',
+      modal: {
+        eyebrow: 'INVERSIÓN · CUOTA 1',
+        title: 'Cuota 1 · 40% al arranque',
+        date: '15 de junio · al firmar y arrancar preproducción',
+        what: 'Pago de arranque. Cubre el concepto paraguas, toda la preproducción (5 semanas de equipo trabajando) y el armado del rodaje: casting, locaciones, scouting, permisos y crew. El grueso del esfuerzo del proyecto pre-rodaje vive acá.',
+        deliver: [
+          'Concepto paraguas formalizado',
+          'Equipo de preproducción dedicado',
+          'Armado completo del rodaje'
+        ],
+        need: [
+          'Confirmación de orden de compra',
+          'Datos fiscales para emisión de factura'
+        ],
+        hint: 'Esta cuota desbloquea todo lo demás. Sin ella no podemos comprometer locaciones, talentos y crew.'
+      }
+    },
+    {
+      id: 'pay-2',
+      kind: 'payment',
+      day: 45, // 30 jul
+      pct: '30%',
+      amount: '€ 14.700',
+      date: '30 JUL · POST-RODAJE',
+      modal: {
+        eyebrow: 'INVERSIÓN · CUOTA 2',
+        title: 'Cuota 2 · 30% al cierre del rodaje',
+        date: '30 de julio · rodaje cerrado',
+        what: 'Pago al completar el rodaje. Cubre los 3 días de producción intensiva, el equipamiento, los talentos y el inicio de la postproducción del spot de lanzamiento y los testimoniales.',
+        deliver: [
+          'Confirmación de cierre de rodaje con reporte',
+          'Material crudo en backup verificado',
+          'Inicio de edición de hitos hero'
+        ],
+        need: [
+          'Conformidad sobre cierre de rodaje'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'pay-3',
+      kind: 'payment',
+      day: 76, // 30 ago
+      pct: '15%',
+      amount: '€ 7.350',
+      date: '30 AGO · PRIMERA VERSIÓN',
+      modal: {
+        eyebrow: 'INVERSIÓN · CUOTA 3',
+        title: 'Cuota 3 · 15% con primeras versiones',
+        date: '30 de agosto · primera entrega lista para revisión',
+        what: 'Pago al entregar primeras versiones del spot de lanzamiento, video hero web y testimoniales. Acompaña el ritmo de revisión y feedback de ViveLibre.',
+        deliver: [
+          'Primer corte del spot lanzamiento',
+          'Primer corte del video hero web',
+          'Primeros cortes de testimoniales'
+        ],
+        need: [
+          'Designar punto único de feedback en ViveLibre'
+        ],
+        hint: ''
+      }
+    },
+    {
+      id: 'pay-4',
+      kind: 'payment',
+      day: 106, // 29 sep
+      pct: '15%',
+      amount: '€ 7.350',
+      date: '29 SEP · ENTREGA FINAL',
+      align: 'right',
+      modal: {
+        eyebrow: 'INVERSIÓN · CUOTA 4',
+        title: 'Cuota 4 · 15% al cierre del lanzamiento',
+        date: '29 de septiembre · todo entregado',
+        what: 'Pago final. Cubre la entrega de todos los masters, adaptaciones digitales por plataforma, biblioteca de imágenes y archivos maestros para que ViveLibre quede con el material disponible y accionable.',
+        deliver: [
+          'Masters finales en todos los formatos',
+          'Adaptaciones digitales finales',
+          'Archivo maestro y biblioteca de imágenes',
+          'Reporte de cierre del bloque de lanzamiento'
+        ],
+        need: [
+          'Conformidad sobre entrega final'
+        ],
+        hint: ''
+      }
+    }
+  ]
+};
+
+/* ============================================
+   RENDER
+   ============================================ */
+
+function renderProd() {
+  const track = document.getElementById('track-prod');
+  items.prod.forEach((it, idx) => {
+    const { left, width } = span(it.start, it.end);
+    const el = document.createElement('div');
+    el.className = 'bar ' + it.cls;
+    el.style.left = left;
+    el.style.width = width;
+    el.dataset.kind = 'prod';
+    el.dataset.id = it.id;
+    const isNarrow = parseFloat(width) < 8;
+    if (isNarrow) {
+      el.innerHTML = `
+        <div class="bar__callout">${it.label}<small>${it.dates}</small></div>
+      `;
+    } else {
+      el.innerHTML = `
+        <span class="bar__label">${it.label}</span>
+        <span class="bar__dates">${it.dates}</span>
+      `;
+    }
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-50%) translateX(-8px)';
+    track.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(-50%) translateX(0)';
+    }, 80 + idx * 90);
+    el.addEventListener('click', () => openModal('prod', it));
+  });
+}
+
+function renderClient() {
+  const track = document.getElementById('track-client');
+  items.client.forEach((it, idx) => {
+    const el = document.createElement('div');
+    el.className = 'milestone' + (it.hero ? ' milestone--hero' : '');
+    el.style.left = pct(it.day);
+    el.dataset.kind = 'client';
+    el.dataset.id = it.id;
+    if (it.vpos) el.dataset.vpos = it.vpos;
+    if (it.align) el.dataset.align = it.align;
+    el.innerHTML = `
+      <div class="milestone__dot"></div>
+      <div class="milestone__label">${it.label}<span class="milestone__date">${it.date}</span></div>
+    `;
+    el.style.opacity = '0';
+    track.appendChild(el);
+    setTimeout(() => { el.style.opacity = '1'; }, 200 + idx * 110);
+    el.addEventListener('click', () => openModal('client', it));
+  });
+}
+
+function renderPay() {
+  const track = document.getElementById('track-pay');
+  items.pay.forEach((it, idx) => {
+    const el = document.createElement('div');
+    el.className = 'payment';
+    el.style.left = pct(it.day);
+    el.dataset.kind = 'pay';
+    el.dataset.id = it.id;
+    if (it.align) el.dataset.align = it.align;
+    el.innerHTML = `
+      <div class="payment__chip">
+        <span class="payment__pct">${it.pct}</span>
+        <span class="payment__amount">${it.amount}</span>
+      </div>
+      <div class="payment__date">${it.date}</div>
+    `;
+    el.style.opacity = '0';
+    track.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = '1';
+    }, 300 + idx * 130);
+    el.addEventListener('click', () => openModal('pay', it));
+  });
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+const modal = document.getElementById('modal');
+const modalBand = document.getElementById('modal-band');
+const modalEye = document.getElementById('modal-eyebrow');
+const modalTitle = document.getElementById('modal-title');
+const modalDate = document.getElementById('modal-date');
+const modalWhat = document.querySelector('#modal-what p');
+const modalDeliver = document.querySelector('#modal-deliver ul');
+const modalNeed = document.querySelector('#modal-need ul');
+const modalHint = document.getElementById('modal-hint');
+
+function openModal(kind, item) {
+  const m = item.modal;
+  modalBand.className = 'modal__band modal__band--' + kind;
+  modalEye.textContent = m.eyebrow;
+  modalTitle.textContent = m.title;
+  modalDate.textContent = m.date;
+  modalWhat.textContent = m.what;
+  modalDeliver.innerHTML = m.deliver.map(d => `<li>${d}</li>`).join('');
+  modalNeed.innerHTML = m.need.map(d => `<li>${d}</li>`).join('');
+  if (m.hint) {
+    modalHint.textContent = m.hint;
+    modalHint.hidden = false;
+  } else {
+    modalHint.hidden = true;
+  }
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeModal() {
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+modal.addEventListener('click', (e) => {
+  if (e.target.dataset.close !== undefined) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ============================================
+   AXIS DAYS · fechas críticas en el eje inferior
+   ============================================ */
+const axisDays = [
+  { day: 0,   label: '15 jun', key: true,  anchor: 'left' },
+  { day: 15,  label: '30 jun' },
+  { day: 30,  label: '15 jul', key: true },
+  { day: 37,  label: '22 jul', key: true },
+  { day: 45,  label: '30 jul', key: true },
+  { day: 61,  label: '15 ago' },
+  { day: 76,  label: '30 ago', key: true },
+  { day: 92,  label: '15 sep', key: true },
+  { day: 106, label: '29 sep', key: true,  anchor: 'right' }
+];
+
+function renderAxisDays() {
+  const axis = document.getElementById('axis-days');
+  axisDays.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'axis-day';
+    el.style.left = pct(d.day);
+    if (d.key) el.dataset.key = 'true';
+    if (d.anchor) el.dataset.anchor = d.anchor;
+    el.textContent = d.label;
+    axis.appendChild(el);
+  });
+}
+
+/* ============================================
+   INIT
+   ============================================ */
+renderProd();
+renderClient();
+renderPay();
+renderAxisDays();
+</script>
+
+</body>
+</html>
