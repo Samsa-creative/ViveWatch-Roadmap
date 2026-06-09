@@ -59,7 +59,7 @@ body {
    HERO
    ============================================ */
 .hero {
-  padding: 36px var(--pad-x) 28px;
+  padding: 24px var(--pad-x) 18px;
   color: var(--paper);
   position: relative;
 }
@@ -68,8 +68,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
+
+.hero__body {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
+.hero__body__title { min-width: 0; }
+.hero__body__sub   { min-width: 0; }
 
 .hero__logos {
   display: flex;
@@ -113,15 +123,14 @@ body {
   text-transform: uppercase;
   color: var(--fog);
   opacity: 0.7;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .hero h1 {
-  font-size: clamp(32px, 3.4vw, 52px);
+  font-size: clamp(28px, 2.8vw, 42px);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.05;
   letter-spacing: -0.02em;
-  max-width: 920px;
 }
 
 .hero h1 .gradient {
@@ -132,23 +141,21 @@ body {
 }
 
 .hero__sub {
-  margin-top: 18px;
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--fog);
-  max-width: 720px;
 }
 
 .hero__flag {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 22px;
-  padding: 8px 16px;
+  margin-top: 12px;
+  padding: 6px 14px;
   background: rgba(92, 174, 255, 0.10);
   border: 1px solid rgba(92, 174, 255, 0.25);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--fog);
@@ -167,13 +174,13 @@ body {
    ============================================ */
 .timeline-wrap {
   flex: 1;
-  padding: 0 var(--pad-x) 32px;
+  padding: 0 var(--pad-x) 18px;
 }
 
 .timeline {
   background: var(--paper);
-  border-radius: 22px;
-  padding: 32px 40px 38px;
+  border-radius: 18px;
+  padding: 22px 32px 28px;
   box-shadow: 0 30px 80px rgba(0,0,0,0.35);
   position: relative;
   overflow: hidden;
@@ -238,7 +245,7 @@ body {
   display: grid;
   grid-template-columns: 190px 1fr;
   gap: 24px;
-  margin-top: 16px;
+  margin-top: 12px;
   align-items: stretch;
 }
 
@@ -251,7 +258,7 @@ body {
 
 .heatmap__track {
   display: flex;
-  height: 64px;
+  height: 56px;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e5ebf5;
@@ -307,7 +314,7 @@ body {
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-top: 14px;
+  margin-top: 10px;
   font-size: 11px;
   font-weight: 600;
   color: var(--steel);
@@ -451,9 +458,9 @@ body {
   overflow: visible;
 }
 
-.lane--prod .lane__track { min-height: 138px; }
-.lane--client .lane__track { min-height: 140px; }
-.lane--pay .lane__track { min-height: 104px; }
+.lane--prod .lane__track { min-height: 122px; }
+.lane--client .lane__track { min-height: 124px; }
+.lane--pay .lane__track { min-height: 92px; }
 
 /* week grid background */
 .lane__track::before {
@@ -824,15 +831,15 @@ body {
 .strip {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-  margin: 32px var(--pad-x) 28px;
+  gap: 16px;
+  margin: 18px var(--pad-x) 14px;
 }
 
 .strip__card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 12px;
+  padding: 12px 16px;
   color: var(--fog);
   backdrop-filter: blur(6px);
 }
@@ -879,7 +886,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--pad-x) 28px;
+  padding: 0 var(--pad-x) 14px;
   color: var(--fog);
   opacity: 0.55;
   font-size: 11px;
@@ -946,9 +953,12 @@ body {
   background: var(--aurora);
 }
 
-.modal__band--prod   { background: var(--lane-prod); }
-.modal__band--client { background: var(--lane-client); }
-.modal__band--pay    { background: var(--lane-pay); }
+.modal__band--prod      { background: var(--lane-prod); }
+.modal__band--client    { background: var(--lane-client); }
+.modal__band--pay       { background: var(--lane-pay); }
+.modal__band--heat-low  { background: linear-gradient(135deg, #b5edc5 0%, #37CFA8 100%); }
+.modal__band--heat-med  { background: linear-gradient(135deg, #ffd76b 0%, #ff9b4d 100%); }
+.modal__band--heat-high { background: linear-gradient(135deg, #ff7878 0%, #d84545 100%); }
 
 .modal__close {
   position: absolute;
@@ -1080,13 +1090,17 @@ body {
   .heatmap__cell__week { font-size: 7px; }
 }
 
+@media (max-width: 900px) {
+  .hero__body { grid-template-columns: 1fr; gap: 16px; }
+}
+
 @media (max-width: 760px) {
-  .hero h1 { font-size: 28px; }
+  .hero h1 { font-size: 26px; }
   .lane, .heatmap { grid-template-columns: 1fr; }
   .lane__label, .heatmap__label { padding: 0 0 8px; }
   .axis-months, .axis-days { margin-left: 0; }
   .strip { grid-template-columns: 1fr; }
-  .timeline { padding: 22px 18px 28px; overflow-x: auto; }
+  .timeline { padding: 18px 16px 22px; overflow-x: auto; }
   .heatmap__legend { font-size: 10px; gap: 10px; }
 }
 </style>
@@ -1109,11 +1123,16 @@ body {
     </div>
   </div>
 
-  <p class="eyebrow">Lanzamiento ViveWatch · Producción</p>
-  <h1>El plan, <span class="gradient">semana a semana</span>, hasta el aire.</h1>
-  <p class="hero__sub">Tres carriles que avanzan en paralelo y convergen en el lanzamiento de septiembre. Producción, puntos de contacto con ViveLibre y calendario de pagos, sincronizados. Hacé click en cualquier hito para ver el detalle.</p>
-
-  <div class="hero__flag">Sujeto a confirmación de la fecha exacta de lanzamiento</div>
+  <div class="hero__body">
+    <div class="hero__body__title">
+      <p class="eyebrow">Lanzamiento ViveWatch · Producción</p>
+      <h1>El plan, <span class="gradient">semana a semana</span>, hasta el aire.</h1>
+    </div>
+    <div class="hero__body__sub">
+      <p class="hero__sub">Tres carriles que avanzan en paralelo y convergen en el lanzamiento de septiembre. Producción, puntos de contacto con ViveLibre y calendario de pagos, sincronizados. Hacé click en cualquier hito para ver el detalle.</p>
+      <div class="hero__flag">Sujeto a confirmación de la fecha exacta de lanzamiento</div>
+    </div>
+  </div>
 </header>
 
 <!-- ==========================================
@@ -1151,6 +1170,23 @@ body {
         <div class="lane__track" id="track-client"></div>
       </div>
 
+      <!-- HEATMAP · Implicancia del equipo ViveLibre, debajo de Puntos de contacto -->
+      <div class="heatmap">
+        <div class="heatmap__label">
+          <span class="lane__num">CARGA SEMANAL</span>
+          <span class="lane__title">Implicancia Equipo ViveLibre</span>
+          <span class="lane__sub">Horas estimadas por semana</span>
+        </div>
+        <div class="heatmap__track" id="heatmap-track"></div>
+      </div>
+
+      <div class="heatmap__legend">
+        <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--low"></span>Bajo · 0-1,5h</div>
+        <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--med"></span>Medio · 1,5-4h</div>
+        <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--high"></span>Alto · 5h o más</div>
+        <div class="heatmap__total">Inversión total Equipo ViveLibre: <strong>~44h</strong> en 20 semanas (~2h/sem)</div>
+      </div>
+
       <!-- ====== LANE 3 · PAGOS ====== -->
       <div class="lane lane--pay">
         <div class="lane__label">
@@ -1161,23 +1197,6 @@ body {
         <div class="lane__track" id="track-pay"></div>
       </div>
 
-    </div>
-
-    <!-- HEATMAP · Carga semanal estimada del depto. de marketing -->
-    <div class="heatmap">
-      <div class="heatmap__label">
-        <span class="lane__num">CARGA</span>
-        <span class="lane__title">Tu implicancia</span>
-        <span class="lane__sub">Horas estimadas por semana</span>
-      </div>
-      <div class="heatmap__track" id="heatmap-track"></div>
-    </div>
-
-    <div class="heatmap__legend">
-      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--low"></span>Bajo · 0-1,5h</div>
-      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--med"></span>Medio · 1,5-4h</div>
-      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--high"></span>Alto · 5h o más</div>
-      <div class="heatmap__total">Tu inversión total: <strong>~44h</strong> en 20 semanas (~2h/sem)</div>
     </div>
 
     <!-- Eje inferior · fechas críticas alineadas a los hitos -->
@@ -1802,8 +1821,27 @@ function openModal(kind, item) {
   modalTitle.textContent = m.title;
   modalDate.textContent = m.date;
   modalWhat.textContent = m.what;
-  modalDeliver.innerHTML = m.deliver.map(d => `<li>${d}</li>`).join('');
-  modalNeed.innerHTML = m.need.map(d => `<li>${d}</li>`).join('');
+
+  const isHeat = kind.startsWith('heat');
+  document.querySelector('#modal-deliver h4').textContent = isHeat ? 'Qué pasa esta semana' : 'Qué entregamos';
+  document.querySelector('#modal-need h4').textContent    = isHeat ? 'Tu involucramiento' : 'Qué necesitamos de ViveLibre';
+
+  const deliverSection = document.getElementById('modal-deliver');
+  if (m.deliver && m.deliver.length > 0) {
+    modalDeliver.innerHTML = m.deliver.map(d => `<li>${d}</li>`).join('');
+    deliverSection.hidden = false;
+  } else {
+    deliverSection.hidden = true;
+  }
+
+  const needSection = document.getElementById('modal-need');
+  if (m.need && m.need.length > 0) {
+    modalNeed.innerHTML = m.need.map(d => `<li>${d}</li>`).join('');
+    needSection.hidden = false;
+  } else {
+    needSection.hidden = true;
+  }
+
   if (m.hint) {
     modalHint.textContent = m.hint;
     modalHint.hidden = false;
@@ -1847,26 +1885,246 @@ const axisDays = [
    HEATMAP · render semanal
    ============================================ */
 const heatmapWeeks = [
-  { week: 1,  label: '15-21 jun',     hours: 5,    event: 'Kickoff + Conceptualización' },
-  { week: 2,  label: '22-28 jun',     hours: 0.5,  event: 'WIP preproducción · storyboards' },
-  { week: 3,  label: '29 jun · 5 jul', hours: 0.5, event: 'WIP preproducción · casting' },
-  { week: 4,  label: '6-12 jul',      hours: 0,    event: 'Buffer · Samsa cierra guiones' },
-  { week: 5,  label: '13-19 jul',     hours: 8,    event: 'Aprobación de guiones' },
-  { week: 6,  label: '20-26 jul',     hours: 12,   event: 'Rodaje · 1,5 jornadas en set' },
-  { week: 7,  label: '27 jul · 2 ago', hours: 0,   event: 'Samsa empieza postpro' },
-  { week: 8,  label: '3-9 ago',       hours: 0.5,  event: 'WIP postpro · rough cut' },
-  { week: 9,  label: '10-16 ago',     hours: 0,    event: 'Samsa avanza · vacaciones' },
-  { week: 10, label: '17-23 ago',     hours: 0.5,  event: 'WIP postpro · cortes' },
-  { week: 11, label: '24-30 ago',     hours: 3,    event: 'Feedback primera versión' },
-  { week: 12, label: '31 ago · 6 sep', hours: 0,   event: 'Samsa ajusta sobre feedback' },
-  { week: 13, label: '7-13 sep',      hours: 0,    event: 'Samsa cierra masters' },
-  { week: 14, label: '14-20 sep',     hours: 2.5,  event: 'Aprobación final + lanzamiento' },
-  { week: 15, label: '21-27 sep',     hours: 1.5,  event: 'Kickoff postpro paralela' },
-  { week: 16, label: '28 sep · 4 oct', hours: 0.75, event: 'WIP paralela · 4 hitos' },
-  { week: 17, label: '5-11 oct',      hours: 0.75, event: 'WIP paralela · 4 hitos' },
-  { week: 18, label: '12-18 oct',     hours: 5,    event: 'Feedback simultáneo 4 hitos' },
-  { week: 19, label: '19-25 oct',     hours: 0.75, event: 'Samsa ajusta sobre feedback' },
-  { week: 20, label: '26 oct · 1 nov', hours: 2.5, event: 'Aprobación final 4 hitos' }
+  {
+    week: 1, label: '15-21 jun', hours: 5, event: 'Kickoff + Conceptualización',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 1',
+      title: 'Kickoff + Conceptualización',
+      date: '15 al 21 de junio · 5h',
+      what: 'Semana de arranque. Alineamos equipos, definimos juntos el concepto paraguas y bajamos enfoque creativo. El concepto que validemos acá es el que ordena toda la producción posterior.',
+      deliver: ['Reunión de arranque (2h)', 'Sesión de conceptualización (2h)', 'Validación interna del concepto'],
+      need: ['Disponibilidad de 5h en la semana, distribuidas entre reuniones y revisión'],
+      hint: 'Carga alta justificada: la conceptualización define el norte de todo el proyecto.'
+    }
+  },
+  {
+    week: 2, label: '22-28 jun', hours: 0.5, event: 'WIP preproducción · storyboards',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 2',
+      title: 'WIP preproducción · storyboards',
+      date: '22 al 28 de junio · 30min',
+      what: 'Samsa arranca storyboards y desarrollo visual. Te compartimos avances para que veas la dirección sin abrir ronda formal.',
+      deliver: ['Samsa: bocetos de storyboard inicial'],
+      need: ['Una mirada rápida sobre la dirección visual (30min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 3, label: '29 jun · 5 jul', hours: 0.5, event: 'WIP preproducción · casting',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 3',
+      title: 'WIP preproducción · casting',
+      date: '29 de junio al 5 de julio · 30min',
+      what: 'Samsa arma la shortlist de casting y avanza scouting de locaciones. WIP para validar que vamos en la dirección correcta de talento.',
+      deliver: ['Samsa: shortlist de casting + opciones de locación'],
+      need: ['Validación rápida de la línea de casting (30min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 4, label: '6-12 jul', hours: 0, event: 'Samsa cierra guiones',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 4',
+      title: 'Samsa avanza en silencio',
+      date: '6 al 12 de julio · sin reuniones',
+      what: 'Semana de trabajo interno fuerte. Samsa redacta y refina los 6 guiones hero para presentarlos en la semana 5. No requerimos tu tiempo.',
+      deliver: ['Samsa: redacción de 6 guiones hero', 'Samsa: revisión interna y ajustes'],
+      need: [],
+      hint: 'Una de las ventajas del modelo: te liberamos semanas enteras para que enfoques en otras prioridades de marketing.'
+    }
+  },
+  {
+    week: 5, label: '13-19 jul', hours: 8, event: 'Aprobación de guiones',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 5',
+      title: 'Aprobación final de guiones',
+      date: '13 al 19 de julio · 8h',
+      what: 'Gate crítico. Revisás los 6 guiones hero, validás claims legales del producto, hacés ronda de ajustes con Samsa. Es el momento donde más vale tu tiempo: las decisiones acá ahorran semanas de re-trabajo después.',
+      deliver: ['Samsa: 6 guiones finales para revisión'],
+      need: ['6 guiones × 30-45min de revisión cada uno (4h)', 'Validación legal/claims (2h)', 'Ronda de ajustes con Samsa (2h)'],
+      hint: 'Carga alta justificada y puntual. Después de esta semana, baja a casi cero hasta el rodaje.'
+    }
+  },
+  {
+    week: 6, label: '20-26 jul', hours: 12, event: 'Rodaje · 1,5 jornadas en set',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 6',
+      title: 'Rodaje · 1,5 jornadas en set',
+      date: '22, 23 y 24 de julio · 12h',
+      what: 'Tres días intensivos de rodaje. Recomendamos presencia de Verónica al menos una jornada y media. Las decisiones que se toman en set son más rápidas y mejores con presencia del cliente.',
+      deliver: ['Samsa: rodaje completo de 6 hitos hero + testimoniales', 'Samsa: fotos editoriales'],
+      need: ['1 jornada completa en set (8h)', 'Media jornada adicional otro día (4h)'],
+      hint: 'La presencia en set es opcional pero el ROI emocional y operativo es altísimo. Genera confianza y queda como material institucional.'
+    }
+  },
+  {
+    week: 7, label: '27 jul · 2 ago', hours: 0, event: 'Samsa empieza postpro',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 7',
+      title: 'Samsa arranca postproducción',
+      date: '27 de julio al 2 de agosto · sin reuniones',
+      what: 'Samsa baja material crudo, organiza el archivo y arranca primera selección de takes. Vos descansás del proyecto.',
+      deliver: ['Samsa: organización del material crudo', 'Samsa: primera selección de takes'],
+      need: [],
+      hint: ''
+    }
+  },
+  {
+    week: 8, label: '3-9 ago', hours: 0.5, event: 'WIP postpro · rough cut',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 8',
+      title: 'WIP postpro · rough cut',
+      date: '3 al 9 de agosto · 30min',
+      what: 'Compartimos un rough cut del spot de lanzamiento para que veas la dirección general. No es ronda formal de feedback, solo una mirada rápida.',
+      deliver: ['Samsa: rough cut spot lanzamiento'],
+      need: ['Mirada rápida del rough cut (30min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 9, label: '10-16 ago', hours: 0, event: 'Samsa avanza durante vacaciones',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 9',
+      title: 'Samsa avanza durante tus vacaciones',
+      date: '10 al 16 de agosto · sin reuniones',
+      what: 'Samsa no se frena cuando ViveLibre está de vacaciones. Avanzamos sobre los guiones aprobados, dejamos primeras versiones listas para tu vuelta. Esto es clave para que el proyecto no se atrase.',
+      deliver: ['Samsa: edición de spot lanzamiento', 'Samsa: edición de video hero web', 'Samsa: edición de testimoniales'],
+      need: [],
+      hint: 'Diferencial Samsa: trabajamos sobre tus aprobaciones previas para que tus vacaciones no detengan el proyecto.'
+    }
+  },
+  {
+    week: 10, label: '17-23 ago', hours: 0.5, event: 'WIP postpro · cortes',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 10',
+      title: 'WIP postpro · cortes refinados',
+      date: '17 al 23 de agosto · 30min',
+      what: 'Cortes refinados de las piezas principales. Una vista previa antes de la ronda formal de feedback de la semana siguiente.',
+      deliver: ['Samsa: cortes refinados con color y sonido inicial'],
+      need: ['Vista previa de cortes refinados (30min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 11, label: '24-30 ago', hours: 3, event: 'Feedback primera versión',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 11',
+      title: 'Feedback sobre primera versión',
+      date: '24 al 30 de agosto · 3h',
+      what: 'Al regreso de vacaciones, encontrás listas las primeras versiones del spot de lanzamiento, video hero web y 3 testimoniales. Ronda de feedback consolidada en una sola entrega.',
+      deliver: ['Samsa: sesión de presentación de cortes', 'Samsa: plataforma de revisión con timestamps'],
+      need: ['Sesión de presentación (1h)', 'Revisión individual con comentarios (1,5h)', 'Consolidación de feedback (30min)'],
+      hint: 'Una sola voz desde ViveLibre evita feedback contradictorio y acelera el cierre.'
+    }
+  },
+  {
+    week: 12, label: '31 ago · 6 sep', hours: 0, event: 'Samsa ajusta sobre feedback',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 12',
+      title: 'Samsa ajusta sobre tu feedback',
+      date: '31 de agosto al 6 de septiembre · sin reuniones',
+      what: 'Samsa incorpora todo el feedback de la semana 11. Trabajo interno intensivo para llegar a la aprobación final con todo resuelto.',
+      deliver: ['Samsa: ajustes de edición, color y sonido'],
+      need: [],
+      hint: ''
+    }
+  },
+  {
+    week: 13, label: '7-13 sep', hours: 0, event: 'Samsa cierra masters',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 13',
+      title: 'Samsa cierra masters',
+      date: '7 al 13 de septiembre · sin reuniones',
+      what: 'Cierre de masters, generación de adaptaciones digitales y preparación de la entrega final para tu aprobación de la semana siguiente.',
+      deliver: ['Samsa: masters finales', 'Samsa: adaptaciones digitales por plataforma'],
+      need: [],
+      hint: ''
+    }
+  },
+  {
+    week: 14, label: '14-20 sep', hours: 2.5, event: 'Aprobación final + lanzamiento',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 14',
+      title: 'Aprobación final + Lanzamiento',
+      date: '14 al 20 de septiembre · 2,5h',
+      what: 'Última ronda de aprobación de masters, adaptaciones y fotos editoriales. Lanzamiento oficial de la campaña ViveWatch. A partir de acá, queda en manos de la agencia de medios.',
+      deliver: ['Samsa: masters + adaptaciones aprobados', 'Samsa: archivo maestro'],
+      need: ['Revisión final + sign-off (2,5h)'],
+      hint: 'Después de esta semana, recién en la semana 15 empezamos el bloque paralelo de los 4 hitos siguientes.'
+    }
+  },
+  {
+    week: 15, label: '21-27 sep', hours: 1.5, event: 'Kickoff postpro paralela',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 15',
+      title: 'Kickoff postpro paralela',
+      date: '21 al 27 de septiembre · 1,5h',
+      what: 'Arranca el bloque de Continuidad, Navidad, Día del Padre y Día de la Madre. Disponemos un equipo dedicado que trabaja los 4 hitos en simultáneo, no cronológicamente.',
+      deliver: ['Samsa: equipo paralelo asignado', 'Samsa: calendario detallado de los 4 hitos'],
+      need: ['Reunión de alineación (1h)', 'Validación enfoques por hito (30min)'],
+      hint: 'Modelo paralelo: 4 hitos en simultáneo evita que tengas feedback sostenido durante 2 meses.'
+    }
+  },
+  {
+    week: 16, label: '28 sep · 4 oct', hours: 0.75, event: 'WIP paralela · 4 hitos',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 16',
+      title: 'WIP paralela · avances de los 4 hitos',
+      date: '28 de septiembre al 4 de octubre · 45min',
+      what: 'Review consolidada por semana cubriendo los 4 hitos en simultáneo. Una sola sesión te muestra el avance de todo el bloque.',
+      deliver: ['Samsa: avance simultáneo de los 4 spots'],
+      need: ['Review consolidada (45min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 17, label: '5-11 oct', hours: 0.75, event: 'WIP paralela · 4 hitos',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 17',
+      title: 'WIP paralela · cortes refinados',
+      date: '5 al 11 de octubre · 45min',
+      what: 'Segunda review consolidada del bloque paralelo. Cortes más avanzados, antes de la ronda formal de feedback.',
+      deliver: ['Samsa: cortes refinados de los 4 hitos'],
+      need: ['Review consolidada (45min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 18, label: '12-18 oct', hours: 5, event: 'Feedback simultáneo 4 hitos',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 18',
+      title: 'Feedback simultáneo de los 4 hitos',
+      date: '12 al 18 de octubre · 5h',
+      what: 'Sesión de bloque para revisar primeras versiones de Continuidad, Navidad, Día del Padre y Día de la Madre. Resolvés la carga de feedback de 4 spots en una sola ventana.',
+      deliver: ['Samsa: sesión de presentación de los 4 cortes', 'Samsa: plataforma consolidada con timestamps'],
+      need: ['Sesión bloque (2h)', 'Revisión individual de 4 spots (3h)'],
+      hint: 'Lo que en modelo secuencial serían 4 reuniones distribuidas en 2 meses, acá lo resolvés en una semana.'
+    }
+  },
+  {
+    week: 19, label: '19-25 oct', hours: 0.75, event: 'Samsa ajusta sobre feedback',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 19',
+      title: 'Samsa ajusta + WIP de cierre',
+      date: '19 al 25 de octubre · 45min',
+      what: 'Samsa incorpora el feedback de la semana 18 sobre los 4 hitos. Una vista previa de los ajustes para confirmar dirección antes de masters finales.',
+      deliver: ['Samsa: ajustes sobre feedback de los 4 hitos'],
+      need: ['WIP de cierre (45min)'],
+      hint: ''
+    }
+  },
+  {
+    week: 20, label: '26 oct · 1 nov', hours: 2.5, event: 'Aprobación final 4 hitos',
+    modal: {
+      eyebrow: 'IMPLICANCIA · SEMANA 20',
+      title: 'Cierre del proyecto · aprobación final',
+      date: '26 de octubre al 1 de noviembre · 2,5h',
+      what: 'Aprobación de masters de los 4 hitos siguientes. Entregamos biblioteca de imágenes y archivo maestro. Quedás con todo el material listo para activar cada hito en su fecha de salida.',
+      deliver: ['Samsa: masters finales de los 4 hitos', 'Samsa: biblioteca de imágenes', 'Samsa: archivo maestro'],
+      need: ['Revisión final + sign-off (2,5h)'],
+      hint: 'Cierre limpio antes de fin de octubre. Total acumulado: ~44h en 20 semanas.'
+    }
+  }
 ];
 
 function levelFor(h) {
@@ -1881,11 +2139,13 @@ function renderHeatmap() {
     const lvl = levelFor(w.hours);
     const el = document.createElement('div');
     el.className = 'heatmap__cell heatmap__cell--' + lvl;
-    el.title = `Semana ${w.week} · ${w.label}\n${w.hours === 0 ? '—' : w.hours + 'h'} · ${w.event}`;
+    el.style.cursor = 'pointer';
+    el.title = `Semana ${w.week} · ${w.label} · ${w.hours === 0 ? 'sin reuniones' : w.hours + 'h'} (click para detalle)`;
     el.innerHTML = `
       <span class="heatmap__cell__hours">${w.hours === 0 ? '—' : w.hours + 'h'}</span>
       <span class="heatmap__cell__week">S${w.week}</span>
     `;
+    el.addEventListener('click', () => openModal('heat-' + lvl, w));
     track.appendChild(el);
   });
 }
