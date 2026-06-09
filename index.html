@@ -190,7 +190,7 @@ body {
 /* AXIS — months */
 .axis-months {
   display: grid;
-  grid-template-columns: 14% 29% 29% 28%;
+  grid-template-columns: 10.87% 22.46% 22.46% 21.74% 22.47%;
   margin-bottom: 6px;
   margin-left: 214px;
   position: relative;
@@ -229,6 +229,123 @@ body {
   color: var(--steel);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* ============================================
+   HEATMAP · Carga semanal de marketing
+   ============================================ */
+.heatmap {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 24px;
+  margin-top: 16px;
+  align-items: stretch;
+}
+
+.heatmap__label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.heatmap__track {
+  display: flex;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5ebf5;
+  background: var(--mist);
+  position: relative;
+}
+
+.heatmap__cell {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 2px;
+  cursor: default;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  border-right: 1px solid rgba(255,255,255,0.4);
+}
+
+.heatmap__cell:last-child { border-right: none; }
+
+.heatmap__cell:hover {
+  filter: brightness(1.06);
+  transform: scaleY(1.04);
+  z-index: 2;
+}
+
+.heatmap__cell--low  { background: linear-gradient(180deg, #d9f7e2 0%, #b5edc5 100%); }
+.heatmap__cell--med  { background: linear-gradient(180deg, #fff0bc 0%, #ffd76b 100%); }
+.heatmap__cell--high { background: linear-gradient(180deg, #ffb3b3 0%, #ff7878 100%); }
+
+.heatmap__cell__hours {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.heatmap__cell__week {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--navy);
+  opacity: 0.55;
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+
+.heatmap__cell--high .heatmap__cell__hours { color: var(--paper); }
+.heatmap__cell--high .heatmap__cell__week  { color: var(--paper); opacity: 0.85; }
+
+.heatmap__legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--steel);
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+}
+
+.heatmap__legend__group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heatmap__legend__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.heatmap__legend__dot--low  { background: linear-gradient(180deg, #d9f7e2 0%, #b5edc5 100%); }
+.heatmap__legend__dot--med  { background: linear-gradient(180deg, #fff0bc 0%, #ffd76b 100%); }
+.heatmap__legend__dot--high { background: linear-gradient(180deg, #ffb3b3 0%, #ff7878 100%); }
+
+.heatmap__total {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+}
+
+.heatmap__total strong {
+  font-size: 18px;
+  background: var(--lane-pay);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
 }
 
 /* AXIS — days (eje inferior con fechas críticas) */
@@ -517,6 +634,18 @@ body {
   color: var(--deep-blue);
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.milestone__hours {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--paper);
+  background: var(--navy);
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
 }
 
 /* línea conectora opcional entre dot y label cuando va arriba */
@@ -943,19 +1072,22 @@ body {
    ============================================ */
 @media (max-width: 1100px) {
   :root { --pad-x: 32px; }
-  .lane { grid-template-columns: 150px 1fr; gap: 14px; }
+  .lane, .heatmap { grid-template-columns: 150px 1fr; gap: 14px; }
   .axis-months, .axis-days { margin-left: 164px; }
   .strip { grid-template-columns: 1fr 1fr; }
   .axis-month strong { font-size: 15px; }
+  .heatmap__cell__hours { font-size: 10px; }
+  .heatmap__cell__week { font-size: 7px; }
 }
 
 @media (max-width: 760px) {
   .hero h1 { font-size: 28px; }
-  .lane { grid-template-columns: 1fr; }
-  .lane__label { padding: 0 0 8px; }
+  .lane, .heatmap { grid-template-columns: 1fr; }
+  .lane__label, .heatmap__label { padding: 0 0 8px; }
   .axis-months, .axis-days { margin-left: 0; }
   .strip { grid-template-columns: 1fr; }
   .timeline { padding: 22px 18px 28px; overflow-x: auto; }
+  .heatmap__legend { font-size: 10px; gap: 10px; }
 }
 </style>
 </head>
@@ -994,6 +1126,7 @@ body {
       <div class="axis-month"><strong>Julio</strong><span class="axis-month__range">1 · 31</span></div>
       <div class="axis-month"><strong>Agosto</strong><span class="axis-month__range">1 · 31</span></div>
       <div class="axis-month"><strong>Septiembre</strong><span class="axis-month__range">1 · 30</span></div>
+      <div class="axis-month"><strong>Octubre</strong><span class="axis-month__range">1 · 31</span></div>
     </div>
 
     <div class="lanes">
@@ -1030,6 +1163,23 @@ body {
 
     </div>
 
+    <!-- HEATMAP · Carga semanal estimada del depto. de marketing -->
+    <div class="heatmap">
+      <div class="heatmap__label">
+        <span class="lane__num">CARGA</span>
+        <span class="lane__title">Tu implicancia</span>
+        <span class="lane__sub">Horas estimadas por semana</span>
+      </div>
+      <div class="heatmap__track" id="heatmap-track"></div>
+    </div>
+
+    <div class="heatmap__legend">
+      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--low"></span>Bajo · 0-1,5h</div>
+      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--med"></span>Medio · 1,5-4h</div>
+      <div class="heatmap__legend__group"><span class="heatmap__legend__dot heatmap__legend__dot--high"></span>Alto · 5h o más</div>
+      <div class="heatmap__total">Tu inversión total: <strong>~44h</strong> en 20 semanas (~2h/sem)</div>
+    </div>
+
     <!-- Eje inferior · fechas críticas alineadas a los hitos -->
     <div class="axis-days" id="axis-days"></div>
   </div>
@@ -1040,24 +1190,24 @@ body {
      ========================================== -->
 <div class="strip">
   <div class="strip__card">
-    <div class="strip__label">Preproducción</div>
+    <div class="strip__label">Arranque</div>
     <div class="strip__value">15 jun</div>
-    <div class="strip__sub">Arranque · 5 semanas</div>
+    <div class="strip__sub">Kickoff + conceptualización</div>
   </div>
   <div class="strip__card">
     <div class="strip__label">Rodaje</div>
     <div class="strip__value">22-24 jul</div>
-    <div class="strip__sub">3 días intensivos, antes de agosto</div>
+    <div class="strip__sub">3 días, antes de agosto</div>
   </div>
   <div class="strip__card">
-    <div class="strip__label">Lanzamiento objetivo</div>
+    <div class="strip__label">Lanzamiento</div>
     <div class="strip__value"><span class="gradient">Septiembre</span></div>
     <div class="strip__sub">Fecha exacta a confirmar</div>
   </div>
   <div class="strip__card">
-    <div class="strip__label">Inversión total</div>
-    <div class="strip__value">€ 49.000</div>
-    <div class="strip__sub">IVA no incluido · 4 cuotas</div>
+    <div class="strip__label">Cierre paralela</div>
+    <div class="strip__value">28 oct</div>
+    <div class="strip__sub">4 hitos siguientes en simultáneo</div>
   </div>
 </div>
 
@@ -1107,8 +1257,8 @@ body {
    DATA · todos los items del timeline
    ============================================ */
 
-// Eje: 15 jun (día 0) → 30 sep (día 107). 100% = 107 días.
-const DAY_TOTAL = 107;
+// Eje: 15 jun (día 0) → 31 oct (día 138). 100% = 138 días.
+const DAY_TOTAL = 138;
 const pct = (d) => (d / DAY_TOTAL * 100).toFixed(2) + '%';
 const span = (start, end) => ({
   left: pct(start),
@@ -1199,25 +1349,26 @@ const items = {
       id: 'post2',
       kind: 'bar',
       cls: 'bar--prod-post2',
-      start: 78, end: 100, // 1 sep → 23 sep
-      label: 'Postpro · Hitos siguientes',
-      dates: '1 sep · 23 sep',
+      start: 102, end: 135, // 25 sep → 28 oct
+      label: 'Postpro paralela · 4 hitos',
+      dates: '25 sep · 28 oct',
       modal: {
-        eyebrow: 'SAMSA · POSTPRODUCCIÓN',
-        title: 'Postproducción · Continuidad y hitos siguientes',
-        date: '1 · 23 de septiembre',
-        what: 'Edición y entrega de los spots de continuidad y los hitos hero que se publican después del lanzamiento. Ritmo aproximado de una semana por campaña, con foco en mantener el lenguaje del lanzamiento y la coherencia de la "Apple de la teleasistencia".',
+        eyebrow: 'SAMSA · POSTPRODUCCIÓN PARALELA',
+        title: 'Postproducción paralela · 4 hitos en simultáneo',
+        date: '25 de septiembre · 28 de octubre',
+        what: 'Continuidad, Navidad, Día del Padre y Día de la Madre. Disponemos un equipo dedicado que trabaja los 4 spots en paralelo en vez de cronológicamente. Esto comprime la ventana de feedback de ViveLibre a un solo bloque de 5 semanas, en vez de extenderla 8-10 semanas con un modelo secuencial.',
         deliver: [
-          'Spot Continuidad ola 1',
-          'Adaptaciones digitales y formatos paid media',
-          'Biblioteca de imágenes para notas de prensa',
-          'Material listo para activar Navidad, Día del Padre y Día de la Madre desde el mismo material crudo'
+          'Spot Continuidad · master + adaptaciones',
+          'Spot Navidad · master + adaptaciones',
+          'Spot Día del Padre · master + adaptaciones',
+          'Spot Día de la Madre · master + adaptaciones',
+          'Biblioteca de imágenes y archivo maestro de campaña'
         ],
         need: [
           'Calendario editorial confirmado por ViveLibre',
-          'Validación de mensajes por campaña'
+          'Referente único de feedback para los 4 hitos'
         ],
-        hint: ''
+        hint: 'Diferencial Samsa: 4 hitos en paralelo en lugar de secuencial. Tu carga de feedback comprimida en una ventana corta en vez de sostenida por 2 meses.'
       }
     }
   ],
@@ -1226,27 +1377,28 @@ const items = {
     {
       id: 'c-kickoff',
       kind: 'milestone',
-      day: 0, // 15 jun
-      label: 'Kickoff · NDA',
-      date: '15 JUN',
+      day: 2, // 15-20 jun
+      label: 'Kickoff + Conceptualización',
+      date: '15 · 20 JUN',
+      hours: '5h',
       vpos: 'down',
       align: 'left',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
-        title: 'Kickoff de proyecto',
-        date: '15 de junio',
-        what: 'Arrancamos formalmente. Reunión de alineación de equipos, validación final del concepto paraguas y firma del NDA para que podamos acceder al render 3D del ViveWatch y al Figma de la web.',
+        title: 'Kickoff y conceptualización',
+        date: '15 al 20 de junio · 5 horas',
+        what: 'Arrancamos formalmente. Reunión de alineación de equipos, definición conjunta del concepto paraguas y bajada inicial del enfoque creativo. El concepto que validemos acá es el que ordena toda la producción posterior.',
         deliver: [
           'Acta de kickoff y plan de proyecto compartido',
+          'Concepto paraguas formalizado',
           'Acceso a tablero de seguimiento'
         ],
         need: [
-          'NDA firmado por ViveLibre',
           'Render 3D del ViveWatch',
           'Prototipo Figma de la web',
-          'Confirmación de equipo del lado de ViveLibre y su disponibilidad'
+          'Validación del concepto por parte del equipo de Verónica'
         ],
-        hint: ''
+        hint: 'Tu tiempo: 5 horas (reunión arranque 2h + sesión de conceptualización 2h + revisión y feedback 1h)'
       }
     },
     {
@@ -1255,6 +1407,7 @@ const items = {
       day: 30, // 15 jul
       label: 'Aprobación guiones',
       date: '15 JUL',
+      hours: '8h',
       vpos: 'down',
       modal: {
         eyebrow: 'VIVELIBRE · GATE',
@@ -1268,7 +1421,7 @@ const items = {
           'Aprobación formal de Verónica · ronda final de revisiones',
           'Validación de mensajes legales / claims del producto'
         ],
-        hint: 'Lo bloqueamos juntos. Este es el momento donde más vale tu tiempo: una hora de revisión acá ahorra semanas de re-trabajo después.'
+        hint: 'Tu tiempo: 8 horas (6 guiones de spots hero × 30-45min cada uno + revisión legal/claims + ronda de ajustes). Lo bloqueamos juntos: este momento es donde más vale tu tiempo, ahorra semanas de re-trabajo después.'
       }
     },
     {
@@ -1277,21 +1430,22 @@ const items = {
       day: 38, // 23 jul
       label: 'Presencia en rodaje',
       date: '22-24 JUL',
+      hours: '12h',
       vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
-        title: 'Presencia en rodaje (opcional)',
-        date: '22, 23 y 24 de julio',
-        what: 'No es obligatorio que estén los tres días, pero recomendamos que Verónica y un representante del producto visiten el set al menos una jornada. Genera confianza, alinea decisiones de tono en tiempo real y queda como material institucional.',
+        title: 'Presencia en rodaje',
+        date: '22, 23 y 24 de julio · 1 jornada y media',
+        what: 'Recomendamos que Verónica y un representante del producto estén en set al menos una jornada y media. Genera confianza, alinea decisiones de tono en tiempo real y queda como material institucional. Las decisiones que se toman en set son más rápidas y mejores con presencia del cliente.',
         deliver: [
           'Itinerario y agenda de visita',
           'Setup para que puedan ver monitores y aprobar takes clave'
         ],
         need: [
-          'Confirmación de qué día/s pueden estar',
-          'Disponibilidad para resolver dudas remotas si no pueden asistir'
+          'Confirmación de qué día y medio pueden estar',
+          'Disponibilidad para resolver dudas remotas el resto del rodaje'
         ],
-        hint: ''
+        hint: 'Tu tiempo: 12 horas (1 jornada completa + media jornada, distribuidas entre los 3 días de rodaje).'
       }
     },
     {
@@ -1300,11 +1454,12 @@ const items = {
       day: 70, // 24 ago
       label: 'Feedback primera versión',
       date: '24 AGO',
+      hours: '3h',
       vpos: 'down',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
         title: 'Feedback sobre primera versión',
-        date: '24 de agosto',
+        date: '24 de agosto · 3 horas',
         what: 'Al regreso de vacaciones, encontrás listas las primeras versiones del spot de lanzamiento, video hero web y testimoniales. Ronda de feedback consolidada en una sola entrega para optimizar el tiempo del equipo de marketing.',
         deliver: [
           'Plataforma de revisión con timestamps y comentarios',
@@ -1314,7 +1469,7 @@ const items = {
           'Feedback consolidado en máximo 5 días hábiles',
           'Una sola voz desde ViveLibre para evitar feedback contradictorio'
         ],
-        hint: ''
+        hint: 'Tu tiempo: 3 horas (sesión de presentación 1h + revisión individual con timestamps 1,5h + consolidación 30min).'
       }
     },
     {
@@ -1323,6 +1478,7 @@ const items = {
       day: 91, // 14 sep
       label: 'Aprobación final',
       date: '14 SEP',
+      hours: '2,5h',
       vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · GATE',
@@ -1348,8 +1504,8 @@ const items = {
       hero: true,
       label: 'Lanzamiento',
       date: '22 SEP*',
+      hours: '0h',
       vpos: 'down',
-      align: 'right',
       modal: {
         eyebrow: 'VIVELIBRE · HITO',
         title: 'Lanzamiento ViveWatch',
@@ -1364,6 +1520,82 @@ const items = {
           'Coordinación con agencia de medios'
         ],
         hint: 'Es el norte de todo el plan. Cuanto antes se confirme la fecha, mejor podemos optimizar el calendario de entregas.'
+      }
+    },
+    {
+      id: 'c-postpara-kick',
+      kind: 'milestone',
+      day: 102, // 25 sep
+      label: 'Kickoff hitos siguientes',
+      date: '25 SEP',
+      hours: '1,5h',
+      vpos: 'up',
+      modal: {
+        eyebrow: 'VIVELIBRE · TOUCHPOINT',
+        title: 'Kickoff postproducción paralela',
+        date: '25 de septiembre · 1,5 horas',
+        what: 'Una vez en aire el lanzamiento, arrancamos el bloque de los 4 hitos siguientes (Continuidad, Navidad, Día del Padre, Día de la Madre). Disponemos un equipo dedicado que trabaja los 4 en simultáneo para que tu carga de feedback sea acotada en el tiempo.',
+        deliver: [
+          'Alineación del equipo paralelo',
+          'Validación de enfoques por hito',
+          'Calendario detallado de feedback'
+        ],
+        need: [
+          'Confirmación de tono y enfoque para cada hito',
+          'Designación del referente único para los 4 hitos'
+        ],
+        hint: 'Tu tiempo: 1,5 horas (reunión de alineación). Modelo paralelo: 4 hitos en simultáneo, no secuencial.'
+      }
+    },
+    {
+      id: 'c-postpara-feedback',
+      kind: 'milestone',
+      day: 124, // 17 oct
+      label: 'Feedback simultáneo · 4 hitos',
+      date: '17 OCT',
+      hours: '5h',
+      vpos: 'down',
+      modal: {
+        eyebrow: 'VIVELIBRE · TOUCHPOINT',
+        title: 'Feedback simultáneo de los 4 hitos',
+        date: '17 de octubre · 5 horas',
+        what: 'Sesión de bloque para revisar primeras versiones de Continuidad, Navidad, Día del Padre y Día de la Madre. Trabajar en paralelo te permite resolver la carga en una sola ventana de 5 horas en vez de tener feedback sostenido por 8-10 semanas.',
+        deliver: [
+          'Sesión de presentación de los 4 cortes (2h)',
+          'Plataforma de revisión consolidada con timestamps',
+          'Documento síntesis de notas'
+        ],
+        need: [
+          'Feedback consolidado en máximo 7 días hábiles',
+          'Una sola voz para los 4 hitos'
+        ],
+        hint: 'Tu tiempo: 5 horas (sesión bloque 2h + revisión individual de 4 spots 3h). Lo que en modelo secuencial serían 4 reuniones distribuidas en 2 meses.'
+      }
+    },
+    {
+      id: 'c-postpara-final',
+      kind: 'milestone',
+      day: 135, // 28 oct
+      label: 'Aprobación final · 4 hitos',
+      date: '28 OCT',
+      hours: '2,5h',
+      vpos: 'up',
+      align: 'right',
+      modal: {
+        eyebrow: 'VIVELIBRE · GATE',
+        title: 'Aprobación final de los 4 hitos',
+        date: '28 de octubre · 2,5 horas',
+        what: 'Cierre del bloque paralelo. Aprobación de masters de Continuidad, Navidad, Día del Padre y Día de la Madre. Entregamos también biblioteca de imágenes para notas de prensa.',
+        deliver: [
+          'Masters finales de los 4 hitos',
+          'Adaptaciones digitales por plataforma',
+          'Biblioteca de imágenes y archivo maestro',
+          'Reporte de cierre del bloque'
+        ],
+        need: [
+          'Aprobación formal'
+        ],
+        hint: 'Tu tiempo: 2,5 horas. Cierre limpio antes de fin de octubre, listos para activar cada hito en su fecha.'
       }
     }
   ],
@@ -1516,7 +1748,7 @@ function renderClient() {
     if (it.align) el.dataset.align = it.align;
     el.innerHTML = `
       <div class="milestone__dot"></div>
-      <div class="milestone__label">${it.label}<span class="milestone__date">${it.date}</span></div>
+      <div class="milestone__label">${it.label}<span class="milestone__date">${it.date}</span>${it.hours ? `<span class="milestone__hours">${it.hours}</span>` : ''}</div>
     `;
     el.style.opacity = '0';
     track.appendChild(el);
@@ -1598,16 +1830,65 @@ document.addEventListener('keydown', (e) => {
    AXIS DAYS · fechas críticas en el eje inferior
    ============================================ */
 const axisDays = [
-  { day: 0,   label: '15 jun', key: true,  anchor: 'left' },
-  { day: 15,  label: '30 jun' },
+  { day: 0,   label: '15 jun', key: true, anchor: 'left' },
   { day: 30,  label: '15 jul', key: true },
   { day: 37,  label: '22 jul', key: true },
   { day: 45,  label: '30 jul', key: true },
   { day: 61,  label: '15 ago' },
   { day: 76,  label: '30 ago', key: true },
-  { day: 92,  label: '15 sep', key: true },
-  { day: 106, label: '29 sep', key: true,  anchor: 'right' }
+  { day: 91,  label: '14 sep', key: true },
+  { day: 99,  label: '22 sep' },
+  { day: 106, label: '29 sep', key: true },
+  { day: 124, label: '17 oct', key: true },
+  { day: 135, label: '28 oct', key: true, anchor: 'right' }
 ];
+
+/* ============================================
+   HEATMAP · render semanal
+   ============================================ */
+const heatmapWeeks = [
+  { week: 1,  label: '15-21 jun',     hours: 5,    event: 'Kickoff + Conceptualización' },
+  { week: 2,  label: '22-28 jun',     hours: 0.5,  event: 'WIP preproducción · storyboards' },
+  { week: 3,  label: '29 jun · 5 jul', hours: 0.5, event: 'WIP preproducción · casting' },
+  { week: 4,  label: '6-12 jul',      hours: 0,    event: 'Buffer · Samsa cierra guiones' },
+  { week: 5,  label: '13-19 jul',     hours: 8,    event: 'Aprobación de guiones' },
+  { week: 6,  label: '20-26 jul',     hours: 12,   event: 'Rodaje · 1,5 jornadas en set' },
+  { week: 7,  label: '27 jul · 2 ago', hours: 0,   event: 'Samsa empieza postpro' },
+  { week: 8,  label: '3-9 ago',       hours: 0.5,  event: 'WIP postpro · rough cut' },
+  { week: 9,  label: '10-16 ago',     hours: 0,    event: 'Samsa avanza · vacaciones' },
+  { week: 10, label: '17-23 ago',     hours: 0.5,  event: 'WIP postpro · cortes' },
+  { week: 11, label: '24-30 ago',     hours: 3,    event: 'Feedback primera versión' },
+  { week: 12, label: '31 ago · 6 sep', hours: 0,   event: 'Samsa ajusta sobre feedback' },
+  { week: 13, label: '7-13 sep',      hours: 0,    event: 'Samsa cierra masters' },
+  { week: 14, label: '14-20 sep',     hours: 2.5,  event: 'Aprobación final + lanzamiento' },
+  { week: 15, label: '21-27 sep',     hours: 1.5,  event: 'Kickoff postpro paralela' },
+  { week: 16, label: '28 sep · 4 oct', hours: 0.75, event: 'WIP paralela · 4 hitos' },
+  { week: 17, label: '5-11 oct',      hours: 0.75, event: 'WIP paralela · 4 hitos' },
+  { week: 18, label: '12-18 oct',     hours: 5,    event: 'Feedback simultáneo 4 hitos' },
+  { week: 19, label: '19-25 oct',     hours: 0.75, event: 'Samsa ajusta sobre feedback' },
+  { week: 20, label: '26 oct · 1 nov', hours: 2.5, event: 'Aprobación final 4 hitos' }
+];
+
+function levelFor(h) {
+  if (h < 1.5) return 'low';
+  if (h < 5)   return 'med';
+  return 'high';
+}
+
+function renderHeatmap() {
+  const track = document.getElementById('heatmap-track');
+  heatmapWeeks.forEach(w => {
+    const lvl = levelFor(w.hours);
+    const el = document.createElement('div');
+    el.className = 'heatmap__cell heatmap__cell--' + lvl;
+    el.title = `Semana ${w.week} · ${w.label}\n${w.hours === 0 ? '—' : w.hours + 'h'} · ${w.event}`;
+    el.innerHTML = `
+      <span class="heatmap__cell__hours">${w.hours === 0 ? '—' : w.hours + 'h'}</span>
+      <span class="heatmap__cell__week">S${w.week}</span>
+    `;
+    track.appendChild(el);
+  });
+}
 
 function renderAxisDays() {
   const axis = document.getElementById('axis-days');
@@ -1629,6 +1910,7 @@ renderProd();
 renderClient();
 renderPay();
 renderAxisDays();
+renderHeatmap();
 </script>
 
 </body>
