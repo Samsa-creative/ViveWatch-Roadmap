@@ -547,8 +547,11 @@ body {
   font-weight: 800;
   overflow: visible;
   border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(56, 94, 157, 0.35);
+  box-shadow: 0 4px 10px rgba(56, 94, 157, 0.25);
+  z-index: 3;
 }
+
+.bar--shoot-marker::after { display: none; }
 
 /* Callout exterior para la barra Rodaje (texto fuera porque la barra es muy angosta) */
 .bar__callout {
@@ -1307,25 +1310,24 @@ const items = {
       id: 'prep',
       kind: 'bar',
       cls: 'bar--prod-prep',
-      start: 0, end: 36, // 15 jun → 21 jul (con gap al rodaje)
+      start: 0, end: 35, // 15 jun → 20 jul (con gap al rodaje)
       label: 'Preproducción',
-      dates: '15 jun · 21 jul',
+      dates: '15 jun · 20 jul',
       modal: {
         eyebrow: 'SAMSA · PRODUCCIÓN',
         title: 'Preproducción',
         date: '15 de junio · 21 de julio',
         what: 'Cinco semanas para llegar al rodaje con todo cerrado. Storyboard final, guiones por hito, casting de actores (campaña y testimoniales por separado), scouting de locaciones, casting de equipo técnico, plan de rodaje día por día y permisos.',
         deliver: [
-          'Storyboard definitivo por pieza',
           'Guiones aprobados de los 6 hitos hero',
           'Casting cerrado · actores campaña + testimoniales',
+          'Storyboard definitivo por pieza',
           'Locaciones confirmadas y permisos',
           'Plan de rodaje y crew completo'
         ],
         need: [
           'Aprobación del concepto paraguas (kickoff)',
-          'Aprobación final de guiones (gate previo al rodaje)',
-          'NDA firmado para acceder a render 3D + Figma'
+          'Aprobación final de guiones (gate previo al rodaje)'
         ],
         hint: 'Esta etapa requiere ritmo de aprobación quincenal. Si las decisiones se demoran, comprime el calendario de rodaje.'
       }
@@ -1345,8 +1347,7 @@ const items = {
         deliver: [
           'Material crudo de 6 hitos hero + testimoniales',
           'Fotos editoriales (Salud + Seguridad)',
-          'B-roll para biblioteca de imágenes',
-          'Reportes diarios de rodaje al cierre de cada jornada'
+          'B-roll para biblioteca de imágenes'
         ],
         need: [
           'Presencia opcional de ViveLibre en set (recomendado al menos un día)',
@@ -1360,9 +1361,9 @@ const items = {
       id: 'post1',
       kind: 'bar',
       cls: 'bar--prod-post1',
-      start: 41, end: 76, // 25 jul → 30 ago (con gap al rodaje)
+      start: 42, end: 76, // 26 jul → 30 ago (con gap al rodaje)
       label: 'Postpro Lanzamiento',
-      dates: '25 jul · 30 ago',
+      dates: '26 jul · 30 ago',
       modal: {
         eyebrow: 'SAMSA · POSTPRODUCCIÓN',
         title: 'Postproducción · Spot Lanzamiento + Web',
@@ -1385,13 +1386,13 @@ const items = {
       id: 'post2',
       kind: 'bar',
       cls: 'bar--prod-post2',
-      start: 105, end: 135, // 28 sep → 28 oct
-      label: 'Postpro paralela',
-      dates: '28 sep · 28 oct',
+      start: 92, end: 135, // 15 sep → 28 oct
+      label: 'Postpro spots restantes',
+      dates: '15 sep · 28 oct',
       modal: {
         eyebrow: 'SAMSA · POSTPRODUCCIÓN PARALELA',
-        title: 'Postproducción paralela · 4 hitos en simultáneo',
-        date: '25 de septiembre · 28 de octubre',
+        title: 'Postpro spots restantes · 4 hitos en simultáneo',
+        date: '15 de septiembre · 28 de octubre',
         what: 'Continuidad, Navidad, Día del Padre y Día de la Madre. Disponemos un equipo dedicado que trabaja los 4 spots en paralelo en vez de cronológicamente. Esto comprime la ventana de feedback de ViveLibre a un solo bloque de 5 semanas, en vez de extenderla 8-10 semanas con un modelo secuencial.',
         deliver: [
           'Spot Continuidad · master + adaptaciones',
