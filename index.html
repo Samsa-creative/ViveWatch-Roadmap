@@ -458,7 +458,7 @@ body {
   overflow: visible;
 }
 
-.lane--prod .lane__track { min-height: 156px; }
+.lane--prod .lane__track { min-height: 140px; }
 .lane--client .lane__track { min-height: 158px; }
 .lane--pay .lane__track { min-height: 118px; }
 
@@ -483,14 +483,14 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 60px;
-  border-radius: 12px;
+  height: 48px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 18px;
   color: var(--paper);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: all 0.25s cubic-bezier(0.2,0.7,0.3,1);
@@ -528,10 +528,10 @@ body {
 .bar--prod-post2  { background: linear-gradient(135deg, #5CAEFF 0%, #385E9D 100%); }
 
 .bar--shoot-marker {
-  height: 76px;
+  height: 60px;
   font-weight: 800;
   overflow: visible;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 6px 18px rgba(56, 94, 157, 0.35);
 }
 
@@ -1344,7 +1344,7 @@ const items = {
       kind: 'bar',
       cls: 'bar--prod-post1',
       start: 41, end: 76, // 25 jul → 30 ago (con gap al rodaje)
-      label: 'Postpro · Lanzamiento + Web',
+      label: 'Postpro Lanzamiento',
       dates: '25 jul · 30 ago',
       modal: {
         eyebrow: 'SAMSA · POSTPRODUCCIÓN',
@@ -1368,9 +1368,9 @@ const items = {
       id: 'post2',
       kind: 'bar',
       cls: 'bar--prod-post2',
-      start: 102, end: 135, // 25 sep → 28 oct
-      label: 'Postpro paralela · 4 hitos',
-      dates: '25 sep · 28 oct',
+      start: 105, end: 135, // 28 sep → 28 oct
+      label: 'Postpro paralela',
+      dates: '28 sep · 28 oct',
       modal: {
         eyebrow: 'SAMSA · POSTPRODUCCIÓN PARALELA',
         title: 'Postproducción paralela · 4 hitos en simultáneo',
@@ -1498,7 +1498,7 @@ const items = {
       label: 'Aprobación final',
       date: '14 SEP',
       hours: '2,5h',
-      vpos: 'up',
+      vpos: 'down',
       modal: {
         eyebrow: 'VIVELIBRE · GATE',
         title: 'Aprobación final pre-lanzamiento',
@@ -1523,8 +1523,7 @@ const items = {
       hero: true,
       label: 'Lanzamiento',
       date: '22 SEP*',
-      hours: '0h',
-      vpos: 'down',
+      vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · HITO',
         title: 'Lanzamiento ViveWatch',
@@ -1544,15 +1543,15 @@ const items = {
     {
       id: 'c-postpara-kick',
       kind: 'milestone',
-      day: 102, // 25 sep
+      day: 108, // 1 oct
       label: 'Kickoff hitos siguientes',
-      date: '25 SEP',
+      date: '1 OCT',
       hours: '1,5h',
-      vpos: 'up',
+      vpos: 'down',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
         title: 'Kickoff postproducción paralela',
-        date: '25 de septiembre · 1,5 horas',
+        date: '1 de octubre · 1,5 horas',
         what: 'Una vez en aire el lanzamiento, arrancamos el bloque de los 4 hitos siguientes (Continuidad, Navidad, Día del Padre, Día de la Madre). Disponemos un equipo dedicado que trabaja los 4 en simultáneo para que tu carga de feedback sea acotada en el tiempo.',
         deliver: [
           'Alineación del equipo paralelo',
@@ -1875,8 +1874,8 @@ const axisDays = [
   { day: 61,  label: '15 ago' },
   { day: 76,  label: '30 ago', key: true },
   { day: 91,  label: '14 sep', key: true },
-  { day: 99,  label: '22 sep' },
-  { day: 106, label: '29 sep', key: true },
+  { day: 99,  label: '22 sep', key: true },
+  { day: 106, label: '29 sep' },
   { day: 124, label: '17 oct', key: true },
   { day: 135, label: '28 oct', key: true, anchor: 'right' }
 ];
