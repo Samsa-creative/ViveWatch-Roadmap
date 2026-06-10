@@ -458,8 +458,8 @@ body {
   overflow: visible;
 }
 
-.lane--prod .lane__track { min-height: 140px; }
-.lane--client .lane__track { min-height: 158px; }
+.lane--prod .lane__track { min-height: 152px; }
+.lane--client .lane__track { min-height: 178px; }
 .lane--pay .lane__track { min-height: 118px; }
 
 /* week grid background */
@@ -488,15 +488,22 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0 18px;
+  padding: 0 16px;
   color: var(--paper);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: all 0.25s cubic-bezier(0.2,0.7,0.3,1);
   box-shadow: 0 4px 14px rgba(29, 47, 73, 0.10);
-  overflow: hidden;
+  overflow: visible;
   z-index: 2;
+}
+
+.bar__inner {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .bar:hover {
@@ -508,18 +515,26 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 
+/* Chip de fechas ahora SIEMPRE va debajo de la barra como callout */
 .bar__dates {
-  font-size: 11px;
-  font-weight: 700;
-  opacity: 0.95;
-  margin-left: 12px;
-  padding: 3px 8px;
-  background: rgba(255,255,255,0.18);
-  border-radius: 6px;
-  letter-spacing: 0.04em;
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--deep-blue);
+  background: var(--paper);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--mist);
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  margin-left: 0;
+  pointer-events: none;
 }
 
 .bar--prod-prep   { background: var(--lane-prod); }
@@ -603,13 +618,15 @@ body {
   top: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%);
-  white-space: nowrap;
+  white-space: normal;
+  width: max-content;
+  max-width: 130px;
   font-size: 11px;
   font-weight: 700;
   color: var(--navy);
   letter-spacing: 0.02em;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 /* vpos UP: label arriba del dot */
@@ -1397,7 +1414,7 @@ const items = {
       id: 'c-kickoff',
       kind: 'milestone',
       day: 2, // 15-20 jun
-      label: 'Kickoff + Conceptualización',
+      label: 'Kickoff + Concepto',
       date: '15 · 20 JUN',
       hours: '5h',
       vpos: 'down',
@@ -1427,7 +1444,7 @@ const items = {
       label: 'Aprobación guiones',
       date: '15 JUL',
       hours: '8h',
-      vpos: 'down',
+      vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · GATE',
         title: 'Aprobación final de guiones',
@@ -1450,7 +1467,7 @@ const items = {
       label: 'Presencia en rodaje',
       date: '22-24 JUL',
       hours: '12h',
-      vpos: 'up',
+      vpos: 'down',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
         title: 'Presencia en rodaje',
@@ -1471,10 +1488,10 @@ const items = {
       id: 'c-feedback',
       kind: 'milestone',
       day: 70, // 24 ago
-      label: 'Feedback primera versión',
+      label: 'Feedback 1ra versión',
       date: '24 AGO',
       hours: '3h',
-      vpos: 'down',
+      vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
         title: 'Feedback sobre primera versión',
@@ -1544,7 +1561,7 @@ const items = {
       id: 'c-postpara-kick',
       kind: 'milestone',
       day: 108, // 1 oct
-      label: 'Kickoff hitos siguientes',
+      label: 'Kickoff paralela',
       date: '1 OCT',
       hours: '1,5h',
       vpos: 'down',
@@ -1569,10 +1586,10 @@ const items = {
       id: 'c-postpara-feedback',
       kind: 'milestone',
       day: 124, // 17 oct
-      label: 'Feedback simultáneo · 4 hitos',
+      label: 'Feedback 4 hitos',
       date: '17 OCT',
       hours: '5h',
-      vpos: 'down',
+      vpos: 'up',
       modal: {
         eyebrow: 'VIVELIBRE · TOUCHPOINT',
         title: 'Feedback simultáneo de los 4 hitos',
@@ -1594,10 +1611,10 @@ const items = {
       id: 'c-postpara-final',
       kind: 'milestone',
       day: 135, // 28 oct
-      label: 'Aprobación final · 4 hitos',
+      label: 'Aprob. final 4 hitos',
       date: '28 OCT',
       hours: '2,5h',
-      vpos: 'up',
+      vpos: 'down',
       align: 'right',
       modal: {
         eyebrow: 'VIVELIBRE · GATE',
@@ -1739,7 +1756,7 @@ function renderProd() {
       `;
     } else {
       el.innerHTML = `
-        <span class="bar__label">${it.label}</span>
+        <div class="bar__inner"><span class="bar__label">${it.label}</span></div>
         <span class="bar__dates">${it.dates}</span>
       `;
     }
